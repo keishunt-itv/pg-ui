@@ -1,10 +1,8 @@
 <br>
-<p>
-**Project Green UI** - utilising React and Electron.... built using [Electron boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate) </p>
-<br>
 
-<div align="center">
-</div>
+**Project Green UI** - utilising React and Electron.... built using [Electron boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
+
+<br>
 
 ## Install
 
