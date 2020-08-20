@@ -1,6 +1,8 @@
 <br>
 
-**Project Green UI** - utilising React and Electron.... built using [Electron boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
+## Project Green UI
+
+Utilising React and Electron... built using [Electron boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
 
 <br>
 
