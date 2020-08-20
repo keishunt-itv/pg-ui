@@ -6,7 +6,6 @@
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
-    "build-e2e": "cross-env E2E_BUILD=true yarn build",
     "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
     "build-renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.renderer.prod.babel.js --colors",
     "dev": "cross-env START_HOT=1 node -r @babel/register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
@@ -31,9 +30,6 @@
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./internals/scripts/BabelRegister ./app/main.dev.ts",
     "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "test": "cross-env BABEL_DISABLE_CACHE=1 jest",
-    "test-all": "yarn lint && yarn tsc && yarn build && yarn test",
-    "test-e2e": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.ts",
-    "test-e2e-live": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe --live electron:./app ./test/e2e/HomePage.e2e.ts",
     "test-watch": "yarn test --watch"
   },
   "lint-staged": {
@@ -241,7 +237,6 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-testcafe": "^0.2.1",
     "file-loader": "^6.0.0",
-    "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
@@ -324,10 +319,5 @@
     "extends": [
       "bliss"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
