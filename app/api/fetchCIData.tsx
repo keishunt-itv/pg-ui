@@ -1,8 +1,8 @@
 import {
-  CarbonIntensityResponse,
+  CarbonIntensityRegion,
   GenerationMixEnum,
   IntensityLevelEnum,
-} from '../interfaces/CarbonIntensityResponse';
+} from '../interfaces/CarbonIntensityRegion';
 
 const intensity: IntensityLevelEnum = {
   forecast: 100,
@@ -24,13 +24,34 @@ const coalGenerationMix: GenerationMixEnum = {
   percentage: 20,
 };
 
-const ciResponse: CarbonIntensityResponse = {
+const yorkshireRegion: CarbonIntensityRegion = {
   region: 'Yorkshire',
   intensityLevel: intensity,
   generationMix: [windGenerationMix, solarGenerationMix, coalGenerationMix],
 };
 
+const northScotlandRegion: CarbonIntensityRegion = {
+  region: 'North Scotland',
+  intensityLevel: intensity,
+  generationMix: [windGenerationMix, solarGenerationMix, coalGenerationMix],
+};
+
+const ciResponse: Array<CarbonIntensityRegion> = [
+  yorkshireRegion,
+  northScotlandRegion,
+];
+
 // eslint-disable-next-line import/prefer-default-export
-export function fetchCIData(): Promise<CarbonIntensityResponse> {
+export function fetchCIData(): Promise<CarbonIntensityRegion[]> {
+  debugger;
   return Promise.resolve(ciResponse);
+}
+
+export async function fetchAllRegions(): Promise<CarbonIntensityRegion[]> {
+  let returnedData: Array<CarbonIntensityRegion> = [];
+  const carbonResponse = await fetchCIData();
+  debugger;
+  carbonResponse.map((value) => returnedData.push(value));
+  console.log(returnedData);
+  return returnedData;
 }
