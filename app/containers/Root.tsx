@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import { hot } from 'react-hot-loader/root';
 import { History } from 'history';
 import { Store } from '../store';
 import Routes from '../Routes';
@@ -18,4 +19,4 @@ const Root = ({ store, history }: Props) => (
   </Provider>
 );
 
-export default Root;
+export default hot(Root);
