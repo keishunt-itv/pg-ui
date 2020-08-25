@@ -1,21 +1,26 @@
 import React, { ReactElement } from 'react';
 import { Typography } from '@material-ui/core';
-// import {fetchAllRegions, fetchCIData} from "../../api/fetchCIData";
+import { fetchAllRegions } from '../../api/fetchCIData';
+import { CarbonIntensityRegion } from '../../interfaces/CarbonIntensityRegion';
 
 export interface InfoBoxProps {
   region: string;
   intensity: string;
 }
 function InfoBox({ region, intensity }: InfoBoxProps): ReactElement {
-  // async function getRegionalInfo() {
-  //   let regionData = await fetchCIData();
-  //   console.log(regionData);
-  // }
+  async function getRegionalInfo(
+    regionName: string
+  ): Promise<CarbonIntensityRegion[]> {
+    const regionData = await fetchAllRegions();
+    console.log(regionData);
+    return regionData.filter((value) => value.region === regionName);
+  }
   return (
     <div>
       <Typography>
-        Hello {region} at the moment your carbon emissions are {intensity}!
+        Hello {region} at the moment your carbon emissions are {intensity} !
       </Typography>
+      {/*{getRegionalInfo(region)}*/}
     </div>
   );
 }

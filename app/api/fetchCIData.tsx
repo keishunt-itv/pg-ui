@@ -58,7 +58,7 @@ export function fetchCIData(): Promise<CarbonIntensityResponse> {
 export async function fetchAllRegions(): Promise<CarbonIntensityRegion[]> {
   let returnedData: Array<CarbonIntensityRegion> = [];
   const carbonResponse = await fetchCIData();
-  carbonResponse.map((value) => returnedData.push(value));
-  ciResponse;
+  carbonResponse.regions.map((value) => returnedData.push(value));
+  console.log(ciResponse);
   return returnedData;
 }

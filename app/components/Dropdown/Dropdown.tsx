@@ -94,7 +94,7 @@ function Dropdown(): ReactElement {
     </FormControl>
       <Divider />
       <div>
-        <InfoBox region={region} intensity={"very high"} />
+        {region.length > 0 ? <InfoBox region={region} intensity={"very high"} /> : null}
       </div>
       </>
   );
