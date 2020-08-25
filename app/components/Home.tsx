@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from './Home.css';
-import { Dropdown } from './Dropdown/Dropdown';
+import Sidebar from './Sidebar/Sidebar';
 
 export default function Home(): JSX.Element {
   return (
     <div className={styles.container} data-tid="container">
-      <h2>Home</h2>
-      <Dropdown />
+      <Sidebar />
     </div>
   );
 }

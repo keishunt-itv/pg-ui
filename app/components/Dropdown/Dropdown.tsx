@@ -1,26 +1,32 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+/* eslint-disable */
+import React, {ReactElement, useState} from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import {fetchAllRegions, fetchCIData} from '../../api/fetchCIData';
-
-const useStyles = makeStyles((theme: { spacing: (arg0: number) => any }) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import {useDropDownStyles} from "./Dropdown.css";
+import {InfoBox} from "../InfoBox/InfoBox";
+import Divider from "@material-ui/core/Divider";
 
 function Dropdown(): ReactElement {
-  const classes = useStyles();
+  const classes = useDropDownStyles();
+  const regionNames = [
+    'North Scotland',
+    'South Scotland',
+    'North East England',
+    'North West England',
+    'North Wales & Merseyside',
+    'South Wales',
+    'West Midlands',
+    'East Midlands',
+    'South East England',
+    'London',
+    'East England',
+    'South England',
+    'South West England',
+    'Yorkshire',
+  ];
 
   const [region, setRegion] = useState('');
-  const [regionNames, setRegionNames] = useState(['']);
   const regionNamesMapped = (regionName: string) => (
     <MenuItem key={regionName} value={regionName}>
       {regionName}
@@ -29,6 +35,10 @@ function Dropdown(): ReactElement {
   const handleChange = (event: any) => {
     setRegion(event.target.value);
   };
+  function sortAlphabetically(regionArray : Array<string>) : Array<string> {
+    return regionArray.sort((a, b) => a.localeCompare(b))
+  }
+  //wanted to do this rather than hardcode but electron was not playing nice
   // const fetchRegionNames = () => {
   //   (async () => {
   //     const regions: Array<string> = [];
@@ -37,23 +47,22 @@ function Dropdown(): ReactElement {
   //       getRegionNames.map((value) => regions.concat(value.region));
   //     }
   //   })();
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       let newRegions: Array<string> = [];
+  //       const regionsApi = await fetchAllRegions();
+  //       if (regionsApi) {
+  //         newRegions.concat(regionsApi.map((value) => value.region));
+  //         console.log(`new regions ... ${newRegions}`)
+  //         setRegionNames(newRegions);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const newRegions: Array<string> = [];
-        const regionsApi = await fetchAllRegions();
-        debugger;
-        if (regionsApi) {
-          newRegions.concat(regionsApi.map((value) => value.region));
-          debugger;
-          setRegionNames(newRegions);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  });
   //   function fetchRegionNames() {
   //       (async () => {
   //         const regions: Array<string> = [];
@@ -66,27 +75,9 @@ function Dropdown(): ReactElement {
   //       })()
   //   }
   // };
-  // const [regionNames, setRegionNames] = useState([
-  //   'North Scotland',
-  //   'South Scotland',
-  //   'North East England',
-  //   'North West England',
-  //   'North Wales & Merseyside',
-  //   'South Wales',
-  //   'West Midlands',
-  //   'East Midlands',
-  //   'South East England',
-  //   'London',
-  //   'East England',
-  //   'South England',
-  //   'South West England',
-  //   'Yorkshire',
-  //   'England',
-  //   'Scotland',
-  //   'Wales',
-  //   'GB',
-  // ]);
+
   return (
+    <>
     <FormControl className={classes.formControl}>
       <Select
         value={region}
@@ -98,12 +89,15 @@ function Dropdown(): ReactElement {
         <MenuItem value="" disabled>
           Select a Region:
         </MenuItem>
-        {regionNames.map(regionNamesMapped)}
+        {sortAlphabetically(regionNames).map(regionNamesMapped)}
       </Select>
-      <FormHelperText>Select region</FormHelperText>
     </FormControl>
+      <Divider />
+      <div>
+        <InfoBox region={region} intensity={"very high"} />
+      </div>
+      </>
   );
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export { Dropdown };
+export {Dropdown};

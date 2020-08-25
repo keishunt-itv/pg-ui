@@ -1,5 +1,7 @@
+import Axios from 'axios';
 import {
   CarbonIntensityRegion,
+  CarbonIntensityResponse,
   GenerationMixEnum,
   IntensityLevelEnum,
 } from '../interfaces/CarbonIntensityRegion';
@@ -42,16 +44,21 @@ const ciResponse: Array<CarbonIntensityRegion> = [
 ];
 
 // eslint-disable-next-line import/prefer-default-export
-export function fetchCIData(): Promise<CarbonIntensityRegion[]> {
-  debugger;
-  return Promise.resolve(ciResponse);
+// export function fetchCIData(): Promise<CarbonIntensityRegion[]> {
+//   return Promise.resolve(ciResponse);
+// }
+export function fetchCIData(): Promise<CarbonIntensityResponse> {
+  return Axios.get<CarbonIntensityResponse>('localhost:8080/all')
+    .then((response) => response.data)
+    .catch((response) => {
+      throw new Error(response);
+    });
 }
 
 export async function fetchAllRegions(): Promise<CarbonIntensityRegion[]> {
   let returnedData: Array<CarbonIntensityRegion> = [];
   const carbonResponse = await fetchCIData();
-  debugger;
   carbonResponse.map((value) => returnedData.push(value));
-  console.log(returnedData);
+  ciResponse;
   return returnedData;
 }
